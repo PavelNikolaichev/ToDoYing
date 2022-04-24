@@ -2,11 +2,12 @@ version: '3'
 
 services:
   php:
-    image: php:7.4-apache
+    build: docker/php
     ports:
-      - 80:80
+      - "80:80"
     volumes:
       - ./:/var/www/html
+    working_dir: /var/www/html
     environment:
       XDEBUG_CONFIG: remote_host=host.docker.internal
   db:
