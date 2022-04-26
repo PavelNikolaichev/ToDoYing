@@ -25,7 +25,7 @@
 
             <div class="row">
                 <div class="col-md-12 bg-light rounded">
-                    <form action="/add.php" method="post">
+                    <form id="form_task" action="/add.php" method="post">
                         <div class="form-row align-items-center m-2">
                             <div class="col-10">
                                 <input type="text" autocomplete="off" name="task" id="task" placeholder="Short description of the task..." class="form-control">
@@ -38,30 +38,33 @@
                 </div>
             </div>
 
-            <?php
-                $query = $pdo->query('SELECT * FROM Tasks ORDER BY id DESC');
-                foreach ($query->fetchAll(PDO::FETCH_OBJ) as $task)
-                {
-                    echo '<div class="row">
-                            <div class="col-md-12 mt-2 bg-light rounded">
-                                <div class="form-row align-items-center m-2">
-                                    <div class="col-10">
-                                        <p class="text-left">'.$task->task.'</p>
-                                    </div>
-                                    <div class="col-2">
-                                        <form action="/delete.php" method="post">
-                                            <input type="hidden" name="id" value="'.$task->id.'">
-                                            <button type="submit" name="deleteTask" class="btn btn-danger">Delete</button>
-                                        </form>
+            <div id="task_list">
+                <?php
+                    $query = $pdo->query('SELECT * FROM Tasks ORDER BY id DESC');
+                    foreach ($query->fetchAll(PDO::FETCH_OBJ) as $task)
+                    {
+                        echo '<div class="row">
+                                <div class="col-md-12 mt-2 bg-light rounded">
+                                    <div class="form-row align-items-center m-2">
+                                        <div class="col-10">
+                                            <p class="text-left">'.$task->task.'</p>
+                                        </div>
+                                        <div class="col-2">
+                                            <form action="/delete.php" id="'.$task->id.'" method="post" class="delete_form">
+                                                <input type="hidden" name="id" value="'.$task->id.'">
+                                                <button type="submit" name="deleteTask" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>';
-                }
-            ?>
+                            </div>';
+                    }
+                ?>
+            </div>
         </div>
 
         <script src="js/jquery-3.6.0.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/form_task.js"></script>
     </body>
 </html>

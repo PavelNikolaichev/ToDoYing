@@ -13,5 +13,5 @@
         $query = $pdo->prepare($sql);
         $query->execute([$task_id]);
 
-        header('Location: /');
+//        header('Location: /');
     }
